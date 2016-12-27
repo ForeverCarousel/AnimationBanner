@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "504530286.31804"
+            timestampString = "504534281.297502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "-maskGestureView"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,44 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "504530286.31804"
+            timestampString = "504534281.297502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-panGestureAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LSHomeBannerView.m"
-            timestampString = "504530286.31804"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "-autoFlowAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LSHomeBannerView.m"
-            timestampString = "504530286.31804"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "-animationDidStart:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -116,27 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "504530286.31804"
+            timestampString = "504534547.367369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "-configWithData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BannerDemo/LSHomeBannerAnimation.m"
-            timestampString = "504529908.631296"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "-animationDidStart:"
             landmarkType = "7">
          </BreakpointContent>
@@ -147,12 +99,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BannerDemo/LSHomeBannerAnimation.m"
-            timestampString = "504529909.702388"
+            filePath = "LSHomeBannerView.m"
+            timestampString = "504534573.226623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "-animationDidStop:finished:"
             landmarkType = "7">
          </BreakpointContent>

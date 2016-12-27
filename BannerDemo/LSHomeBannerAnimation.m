@@ -40,7 +40,7 @@
         [bezierPath moveToPoint:self.layer.position];//160 200
 //        [bezierPath addLineToPoint:CGPointMake(-self.layer.position.x, self.layer.position.y)];
 //        [bezierPath addCurveToPoint:CGPointMake(-self.layer.position.x*2, self.layer.position.y) controlPoint1:CGPointMake(0, 120) controlPoint2:CGPointMake(0, 120)];
-        [bezierPath addQuadCurveToPoint:CGPointMake(-160, 200)  controlPoint:CGPointMake(0, 120)];
+        [bezierPath addQuadCurveToPoint:CGPointMake(-160, 200)  controlPoint:CGPointMake(0, 200)];
         CAKeyframeAnimation* positionAnimation = [CAKeyframeAnimation animation];
         positionAnimation.keyPath = @"position";
         positionAnimation.path = bezierPath.CGPath;
@@ -119,7 +119,6 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStop:finished:)]) {
         [self.delegate animationDidStop:anim finished:flag];
      
-
     }
     
     

@@ -32,6 +32,8 @@
 
 @property (strong, nonatomic) NSTimer* autoFlowTimer;
 
+@property (assign, nonatomic) NSInteger currentIndex;
+
 @end
 
 @implementation LSHomeBannerView
@@ -46,17 +48,17 @@
         self.usingArray = [NSMutableArray array];
         self.reuseArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
         self.dataArray = [NSMutableArray array];
-        
         self.animation = [[LSHomeBannerAnimation alloc] initWithDelegate:self];
-        
+        self.currentIndex = 0;
         for (int i = 0; i < LSHBI_CREAT_COUNT_MAX; ++i) {
             LSHomeBannerItemView* itemView = [[LSHomeBannerItemView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
             itemView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-            [self.usingArray addObject:itemView];
+          
             [self.reuseArray addObject:itemView];
         }
         
-        [self addSubview:self.usingArray[0]];
+        //默认添加一张
+        [self addSubview:self.reuseArray[0]];
         
         [self startTimer];
         [self bringSubviewToFront:self.maskGestureView];
@@ -136,11 +138,13 @@
 -(void)panGestureAction:(UIPanGestureRecognizer* )pgr
 {
     
+    
+    
 }
 
 -(void)autoFlowAction:(NSTimer* )timer
 {
-    
+    [self startAnimationOnTarget:[self dequeueReusableItemView] anmation:self.animation.leftAnimation];
 }
 
 
@@ -155,6 +159,11 @@
     self.autoFlowTimer = nil;
 }
 
+-(void)startAnimationOnTarget:(LSHomeBannerItemView*)targetView anmation:(CAAnimation*)ani
+{
+    [targetView.layer removeAllAnimations];
+    [targetView.layer addAnimation:ani forKey:nil];
+}
 
 #pragma mark - Data Handle
 
@@ -167,6 +176,8 @@
         NSString* imageURL = [obj objectForKey:@"logo"];
         [self.dataArray addObject:imageURL];
     }];
+    //立即给第一张图赋值
+    [self.reuseArray[0] configWithData:self.dataArray[0]];
     [self startTimer];
 }
 
@@ -195,23 +206,34 @@
 
 -(void)animationDidStart:(CAAnimation *)anim
 {
-    NSLog(@"动画开始");
     //取出可重用队列的视图放到即将显示的位置
     LSHomeBannerItemView* nextDisplayView = [self dequeueReusableItemView];
     if (nextDisplayView) {
         [self resetResueView:nextDisplayView];
         [nextDisplayView configWithData:self.dataArray[0]];
+        //放入动画数组 从可重用数组移除
+        [self.usingArray addObject:nextDisplayView];
+        [self.reuseArray removeObject:nextDisplayView];
+        
+        
     }
-    
+    NSLog(@"动画开始 可重用数组：%d  动画数组:%d",self.reuseArray.count,self.usingArray.count);
+   
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    NSLog(@"动画结束");
-    //将执行完动画的视图放回可重用队列
+
+    //将执行完动画的视图移出动画数组 放回可重用队列
     if (flag) {
+        LSHomeBannerItemView* temp = self.usingArray[0];
+        [temp resetData];
+        [self.usingArray removeObjectAtIndex:0];
+        
+        [self.reuseArray addObject:temp];
         
     }
+    NSLog(@"动画结束 可重用数组：%d  动画数组:%d",self.reuseArray.count,self.usingArray.count);
 
 }
 

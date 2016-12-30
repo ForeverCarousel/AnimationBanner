@@ -60,11 +60,8 @@
         //默认添加一张
         [self addSubview:self.reuseArray[0]];
         
-        [self startTimer];
         [self bringSubviewToFront:self.maskGestureView];
         
-   
-
     }
     return self;
 }
@@ -178,7 +175,7 @@
     }];
     //立即给第一张图赋值
     [self.reuseArray[0] configWithData:self.dataArray[0]];
-    [self startTimer];
+//    [self startTimer];
 }
 
 

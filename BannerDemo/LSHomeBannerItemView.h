@@ -10,7 +10,11 @@
 
 @interface LSHomeBannerItemView : UIView
 
+@property (nonatomic, assign) BOOL isWorking;
+
 -(void)configWithData:(id) data;
 -(void)resetData;
+
+
 
 @end

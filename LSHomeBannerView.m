@@ -122,7 +122,7 @@
                                                  target:[LSWeakProxy proxyWithTarget:self]
                                                    selector:@selector(autoFlowAction:)
                                                    userInfo:nil
-                                                    repeats:YES];
+                                                    repeats:NO];
     }
     return _autoFlowTimer;
 }
@@ -175,7 +175,7 @@
     }];
     //立即给第一张图赋值
     [self.reuseArray[0] configWithData:self.dataArray[0]];
-//    [self startTimer];
+    [self startTimer];
 }
 
 

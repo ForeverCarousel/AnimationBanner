@@ -9,10 +9,13 @@
 #import "ViewController.h"
 #import "LSHomeBannerView.h"
 #import "LSAttributeLabel.h"
+#import "CarouselFoldView.h"
 
 @interface ViewController ()
 
 @property (strong, nonatomic) LSAttributeLabel* attrLabel;
+
+@property (strong, nonatomic) CarouselFoldView* iconImage;
 
 @end
 
@@ -21,17 +24,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGSize size = [UIScreen mainScreen].bounds.size;
-    LSHomeBannerView* a = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300)];
-    [self.view addSubview:a];
+    LSHomeBannerView* bannerView = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300)];
+    [self.view addSubview:bannerView];
     
     NSDictionary* dic = LSJSONConfig(@"testContent");
-    [a configWithData:dic];
+    [bannerView configWithData:dic];
     
     
     self.attrLabel = [[LSAttributeLabel alloc] initWithFrame:CGRectMake(20, 350, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     self.attrLabel.font = [UIFont systemFontOfSize:14.0f];
-    [self.view addSubview:_attrLabel];
+//    [self.view addSubview:_attrLabel];
     _attrLabel.numberOfLines = 2;
+    
+    
+    
+    self.iconImage = [[CarouselFoldView alloc] initWithFrame:CGRectMake(0, 300, 290, 415)];
+    _iconImage.backgroundColor = [UIColor redColor];
+    _iconImage.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 +100);
+    _iconImage.image = [UIImage imageNamed:@"Faye"];
+    _iconImage.sensitivity = 3.0f;
+//    [self.view addSubview:_iconImage];
+    
+    
+    
+    
     
 }
 

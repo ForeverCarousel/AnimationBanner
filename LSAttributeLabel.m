@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _isVIP = NO;
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor orangeColor];
         self.baselineAdjustment =  UIBaselineAdjustmentAlignCenters;
     }
     return self;

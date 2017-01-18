@@ -7,15 +7,18 @@
 //
 
 #import "LSHomeBannerItemView.h"
+#import "LSHomeBannerAnimation.h"
 
 
-@interface LSHomeBannerItemView()
+@interface LSHomeBannerItemView()<LSHomeBannerAnimationDelegate>
 
 @property (strong, nonatomic) UIImageView* contentImage;
 
 @property (strong, nonatomic) UIView* tipView;
 
 @property (strong, nonatomic) UILabel* titleLabel;
+
+@property (strong, nonatomic) LSHomeBannerAnimation* animation;
 
 @end
 
@@ -25,7 +28,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor orangeColor];
+        self.state = LSHomeBannerItemViewStateReuseable;
+        
+        self.animation = [[LSHomeBannerAnimation alloc] initWithDelegate:self];
+
+        
         self.contentImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 //        self.contentImage.layer.masksToBounds = YES;
         self.contentImage.layer.cornerRadius = 5.0f;
@@ -50,6 +58,41 @@
 {
     self.contentImage.image = nil;
 }
+
+-(void)startAnimationWithType:(LSHomeItemAnimationType) type
+{
+    [self.layer removeAllAnimations];
+    switch (type) {
+        case LSHomeItemAnimationTypeLeft:
+            [self.layer addAnimation:self.animation.leftAnimation forKey:nil];
+            break;
+        case LSHomeItemAnimationTypeRight:
+            [self.layer addAnimation:self.animation.rightAnimation forKey:nil];
+            break;
+        default:
+            break;
+    }
+}
+-(void)animationDidStart:(CAAnimation *)anim
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStart:target:)]    ) {
+        [self.delegate animationDidStart:anim target:self];
+    }
+    
+}
+
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+//    [self.layer removeAllAnimations];
+    [self resetData];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStop:target:finished:)]    ) {
+        [self.delegate animationDidStop:anim target:self finished:flag];
+    }
+
+    
+}
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

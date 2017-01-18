@@ -7,11 +7,36 @@
 //
 
 #import <UIKit/UIKit.h>
+@class LSHomeBannerItemView;
+
+@protocol LSHomeBannerItemViewAnimationDelegate <NSObject>
+
+-(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView*) targetView;
+
+-(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemView*) targetView finished:(BOOL)flag;
+
+@end
+
+typedef NS_ENUM(NSUInteger, LSHomeBannerItemViewState) {
+    LSHomeBannerItemViewStateUsing,
+    LSHomeBannerItemViewStateReuseable,
+    LSHomeBannerItemViewStateWillUse,
+    LSHomeBannerItemViewStateUnknow,
+};
+
+typedef NS_ENUM(NSUInteger, LSHomeItemAnimationType) {
+    LSHomeItemAnimationTypeLeft,
+    LSHomeItemAnimationTypeRight,
+    LSHomeItemAnimationTypeDefault,
+};
+
 
 @interface LSHomeBannerItemView : UIView
 
-@property (nonatomic, assign) BOOL isWorking;
+@property (nonatomic, assign) LSHomeBannerItemViewState state;
+@property (nonatomic, weak) id <LSHomeBannerItemViewAnimationDelegate> delegate;
 
+-(void)startAnimationWithType:(LSHomeItemAnimationType) type;
 -(void)configWithData:(id) data;
 -(void)resetData;
 

@@ -9,6 +9,7 @@
 #import "LSHomeBannerView.h"
 #import "LSHomeBannerItemView.h"
 #import "LSWeakProxy.h"
+#define LSDeallocLog(obj)  NSLog(@"[_%@_] is Dealloced----MemeoryLog",NSStringFromClass([obj class]));
 
 #define LSHBI_CREAT_COUNT_MAX   2
 
@@ -33,6 +34,8 @@
 @property (assign, nonatomic) NSInteger currentIndex;
 
 @property (assign, nonatomic) BOOL gestureEnable;
+
+@property (assign, nonatomic) CGPoint startPoint ,endPoint;
 
 @end
 
@@ -91,17 +94,17 @@
     if (!_gestureEnable) {
         return;
     }
-    CGPoint startPoint ,endPoint;
+    
     if (sender.state == UIGestureRecognizerStateBegan) {
-        startPoint = [sender translationInView:self.maskView];
+        _startPoint = [sender translationInView:self.maskView];
     }else if (sender.state == UIGestureRecognizerStateEnded){
-        endPoint = [sender translationInView:self.maskView];
-        if (startPoint.x - endPoint.x > 10) {
+        _endPoint = [sender translationInView:self.maskView];
+        if (_startPoint.x - _endPoint.x > 10) {
             LSHomeBannerItemView* next = [self dequeueReusableItemView];
             [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
             [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
         }
-        if (startPoint.x - endPoint.x < 10) {
+        if (_startPoint.x - _endPoint.x < 10) {
         
             LSHomeBannerItemView* next = [self dequeueReusableItemView];
             [next startAnimationWithType:LSHomeItemAnimationTypeRight];
@@ -286,7 +289,7 @@
 
 -(void)dealloc
 {
-    NSLog(@"%@ is Dealloc",self);
+    LSDeallocLog(self);
 }
 
 /*

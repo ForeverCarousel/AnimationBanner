@@ -10,6 +10,7 @@
 #import "LSWeakProxy.h"
 
 #define LSHOME_BANNER_ANIMATION_DURATION  0.5f
+#define LSDeallocLog(obj)  NSLog(@"[_%@_] is Dealloced----MemeoryLog",NSStringFromClass([obj class]));
 
 
 @interface LSHomeBannerAnimation() <CAAnimationDelegate>
@@ -82,9 +83,12 @@
         __weak typeof (self) weakSelf = self;
         
         //路径
+        CGPoint position = CGPointMake(187.5, 150);
         UIBezierPath* bezierPath = [[UIBezierPath alloc] init];
-        [bezierPath moveToPoint:CGPointZero];
-        [bezierPath addLineToPoint:CGPointZero];
+        [bezierPath moveToPoint:position];
+        [bezierPath addLineToPoint:CGPointMake(position.x + 200, position.y)];
+        //位移动画（结束点）
+        [bezierPath addLineToPoint:CGPointMake(position.x - 600,position.y)];
         CAKeyframeAnimation* positionAnimation = [CAKeyframeAnimation animation];
         positionAnimation.keyPath = @"position";
         positionAnimation.path = bezierPath.CGPath;
@@ -132,7 +136,7 @@
 
 -(void)dealloc
 {
-    NSLog(@"%@ is Dealloc",self);
+    LSDeallocLog(self);
 }
 
 @end

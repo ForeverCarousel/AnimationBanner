@@ -9,6 +9,7 @@
 #import "LSHomeBannerItemView.h"
 #import "LSHomeBannerAnimation.h"
 
+#define LSDeallocLog(obj)  NSLog(@"[_%@_] is Dealloced----MemeoryLog",NSStringFromClass([obj class]));
 
 @interface LSHomeBannerItemView()<LSHomeBannerAnimationDelegate>
 
@@ -101,7 +102,7 @@
 }
 -(void)dealloc
 {
-    NSLog(@"%@ is Dealloc",self);
+    LSDeallocLog(self);
 }
 
 

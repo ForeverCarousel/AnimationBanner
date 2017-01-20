@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGSize size = [UIScreen mainScreen].bounds.size;
     
     
     
@@ -33,12 +32,17 @@
     _attrLabel.numberOfLines = 2;
     
     UIButton* btn = [UIButton    buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:@"Button" forState:UIControlStateNormal];
+    [btn setTitle:@"模拟删除/添加" forState:UIControlStateNormal];
     btn.backgroundColor = [UIColor purpleColor];
     [btn setFrame:CGRectMake(20, 350, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
-    
+    UIButton* btn2 = [UIButton    buttonWithType:UIButtonTypeCustom];
+    [btn2 setTitle:@"模拟刷新" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor purpleColor];
+    [btn2 setFrame:CGRectMake(20, 420, [UIScreen mainScreen].bounds.size.width - 40, 40)];
+    [btn2 addTarget:self action:@selector(btnPressed2:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
     
     self.iconImage = [[CarouselFoldView alloc] initWithFrame:CGRectMake(0, 300, 290, 415)];
     _iconImage.backgroundColor = [UIColor redColor];
@@ -48,7 +52,7 @@
     //    [self.view addSubview:_iconImage];
     
     
-    
+    [self showBanner:YES];
     
     
 }
@@ -66,7 +70,9 @@ id LSJSONConfig(NSString *fileName){
 {
     if (show) {
         CGSize size = [UIScreen mainScreen].bounds.size;
-        LSHomeBannerView* bannerView = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300)];
+        LSHomeBannerView* bannerView = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300) selectBlock:^(id info) {
+            NSLog(@"点击了：%@",[info objectForKey:@"title"]);
+        }];
         bannerView.tag = 1010;
         [self.view addSubview:bannerView];
         NSDictionary* dic = LSJSONConfig(@"testContent");
@@ -78,7 +84,7 @@ id LSJSONConfig(NSString *fileName){
 
 -(void)btnPressed:(UIButton*)sender
 {
-    static BOOL a = YES;
+    static BOOL a = NO;
     self.attrLabel.isVIP = a;
     NSString* B = @"第三个参数attributes其实就是字符串的属性，是个字典类型的对象";
     //    NSString* B = @"第三个参数";
@@ -90,6 +96,14 @@ id LSJSONConfig(NSString *fileName){
     
     a = !a;
 }
+
+-(void)btnPressed2:(UIButton*)sender
+{
+    NSDictionary* dic = LSJSONConfig(@"testContent");
+    [[self.view viewWithTag:1010] configWithData:dic];
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

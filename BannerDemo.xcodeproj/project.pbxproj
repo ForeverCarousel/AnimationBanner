@@ -15,7 +15,7 @@
 		BA2AAC031E11060500654C3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA2AAC011E11060500654C3A /* LaunchScreen.storyboard */; };
 		BA2AAC0C1E11180700654C3A /* LSHomeBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC0B1E11180700654C3A /* LSHomeBannerView.m */; };
 		BA2AAC0F1E11184400654C3A /* LSHomeBannerAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC0E1E11184400654C3A /* LSHomeBannerAnimation.m */; };
-		BA2AAC121E11187200654C3A /* LSHomeBannerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC111E11187200654C3A /* LSHomeBannerItemView.m */; };
+		BA2AAC121E11187200654C3A /* LSHomeBannerItemLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC111E11187200654C3A /* LSHomeBannerItemLayer.m */; };
 		BA2AAC151E111BC000654C3A /* LSWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC141E111BC000654C3A /* LSWeakProxy.m */; };
 		BA2AAC171E124E0900654C3A /* testContent.json in Resources */ = {isa = PBXBuildFile; fileRef = BA2AAC161E124E0900654C3A /* testContent.json */; };
 		BA2AAC1D1E139DEC00654C3A /* LSAttributeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AAC1C1E139DEC00654C3A /* LSAttributeLabel.m */; };
@@ -44,8 +44,8 @@
 		BA2AAC0B1E11180700654C3A /* LSHomeBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSHomeBannerView.m; path = ../LSHomeBannerView.m; sourceTree = "<group>"; };
 		BA2AAC0D1E11184400654C3A /* LSHomeBannerAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSHomeBannerAnimation.h; sourceTree = "<group>"; };
 		BA2AAC0E1E11184400654C3A /* LSHomeBannerAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSHomeBannerAnimation.m; sourceTree = "<group>"; };
-		BA2AAC101E11187200654C3A /* LSHomeBannerItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSHomeBannerItemView.h; sourceTree = "<group>"; };
-		BA2AAC111E11187200654C3A /* LSHomeBannerItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSHomeBannerItemView.m; sourceTree = "<group>"; };
+		BA2AAC101E11187200654C3A /* LSHomeBannerItemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSHomeBannerItemLayer.h; sourceTree = "<group>"; };
+		BA2AAC111E11187200654C3A /* LSHomeBannerItemLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSHomeBannerItemLayer.m; sourceTree = "<group>"; };
 		BA2AAC131E111BC000654C3A /* LSWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWeakProxy.h; sourceTree = "<group>"; };
 		BA2AAC141E111BC000654C3A /* LSWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWeakProxy.m; sourceTree = "<group>"; };
 		BA2AAC161E124E0900654C3A /* testContent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testContent.json; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 				BA2AABFA1E11060500654C3A /* ViewController.m */,
 				BA2AAC0A1E11180700654C3A /* LSHomeBannerView.h */,
 				BA2AAC0B1E11180700654C3A /* LSHomeBannerView.m */,
-				BA2AAC101E11187200654C3A /* LSHomeBannerItemView.h */,
-				BA2AAC111E11187200654C3A /* LSHomeBannerItemView.m */,
+				BA2AAC101E11187200654C3A /* LSHomeBannerItemLayer.h */,
+				BA2AAC111E11187200654C3A /* LSHomeBannerItemLayer.m */,
 				BA2AAC0D1E11184400654C3A /* LSHomeBannerAnimation.h */,
 				BA2AAC0E1E11184400654C3A /* LSHomeBannerAnimation.m */,
 				BA2AAC131E111BC000654C3A /* LSWeakProxy.h */,
@@ -215,7 +215,7 @@
 			files = (
 				BA2AAC1D1E139DEC00654C3A /* LSAttributeLabel.m in Sources */,
 				BA2AAC0F1E11184400654C3A /* LSHomeBannerAnimation.m in Sources */,
-				BA2AAC121E11187200654C3A /* LSHomeBannerItemView.m in Sources */,
+				BA2AAC121E11187200654C3A /* LSHomeBannerItemLayer.m in Sources */,
 				BA4ED7941E2CBF33003CCBF8 /* CarouselFoldView.m in Sources */,
 				BA2AABFB1E11060500654C3A /* ViewController.m in Sources */,
 				BA2AAC151E111BC000654C3A /* LSWeakProxy.m in Sources */,

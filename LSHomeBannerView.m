@@ -7,7 +7,7 @@
 //
 
 #import "LSHomeBannerView.h"
-#import "LSHomeBannerItemView.h"
+#import "LSHomeBannerItemLayer.h"
 #import "LSWeakProxy.h"
 #define LSDeallocLog(obj)  NSLog(@"[_%@_] is Dealloced----MemeoryLog",NSStringFromClass([obj class]));
 
@@ -18,10 +18,10 @@
 #define LSHBI_ANIMATION_LEFT_KEY   @"111"
 #define LSHBI_ANIMATION_RIGHT_KEY  @"222"
 
-@interface LSHomeBannerView()<LSHomeBannerItemViewAnimationDelegate>
+@interface LSHomeBannerView()<LSHomeBannerItemLayerAnimationDelegate>
 
-@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemView*>* reuseArray;
-@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemView*>* usingArray;
+@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemLayer*>* reuseArray;
+@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemLayer*>* usingArray;
 
 @property (strong, nonatomic) NSMutableArray* dataArray;
 
@@ -37,31 +37,47 @@
 
 @property (assign, nonatomic) CGPoint startPoint ,endPoint;
 
+@property (copy, nonatomic) selectBlock block;
+
 @end
 
 @implementation LSHomeBannerView
 
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame selectBlock:(selectBlock) selBlock
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.block = selBlock;
         self.gestureEnable = YES;
         self.backgroundColor = [UIColor grayColor];
         self.reuseArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
         self.usingArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
-
         self.dataArray = [NSMutableArray array];
         self.currentIndex = 0;
+        
+        //显示阴影
+        CALayer* backLayer = [[CALayer alloc] init];
+        backLayer.bounds= CGRectMake(0, 0, 300, 200);
+        backLayer.backgroundColor = [UIColor clearColor].CGColor;
+        backLayer.position = CGPointMake(frame.size.width/2 , frame.size.height/2);
+        backLayer.shadowColor = [UIColor blackColor].CGColor;
+        backLayer.shadowRadius = 5.0f;
+        backLayer.shadowOpacity = 0.8;
+        backLayer.shadowOffset = CGSizeMake(5, 5);
+        [self.layer addSublayer:backLayer];
+        
         for (int i = 0; i < LSHBI_CREAT_COUNT_MAX; ++i) {
-            LSHomeBannerItemView* itemView = [[LSHomeBannerItemView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
-            itemView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
-            itemView.delegate = self;
+            LSHomeBannerItemLayer* itemView = [[LSHomeBannerItemLayer alloc] init];
+            itemView.bounds = CGRectMake(0, 0, 300, 200);
+            itemView.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+            itemView.customDelegate = self;
             [self.reuseArray addObject:itemView];
         }
         // 由于数组是追加 所以需要切换下位置
         for (int i = LSHBI_CREAT_COUNT_MAX - 1; i >= 0; i--) {
-            [self addSubview:self.reuseArray[i]];
+            [self.layer addSublayer:self.reuseArray[i]];
         }
         [self bringSubviewToFront:self.maskGestureView];
         
@@ -72,13 +88,11 @@
 
 -(void)willMoveToSuperview:(UIView *)newSuperview
 {
-    if (newSuperview != nil) {
-
-    }else{
-        
+    if (newSuperview == nil) {
+        [self.autoFlowTimer invalidate];
+        self.autoFlowTimer = nil;
     }
 }
-
 -(void)layoutSubviews{
     
 }
@@ -100,23 +114,29 @@
     }else if (sender.state == UIGestureRecognizerStateEnded){
         _endPoint = [sender translationInView:self.maskView];
         if (_startPoint.x - _endPoint.x > 10) {
-            LSHomeBannerItemView* next = [self dequeueReusableItemView];
+            LSHomeBannerItemLayer* next = [self dequeueReusableItemView];
             [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
             [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
         }
         if (_startPoint.x - _endPoint.x < 10) {
         
-            LSHomeBannerItemView* next = [self dequeueReusableItemView];
+            LSHomeBannerItemLayer* next = [self dequeueReusableItemView];
             [next startAnimationWithType:LSHomeItemAnimationTypeRight];
             [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
         }
     }
     
 }
-
+-(void)tapGestureAction:(UITapGestureRecognizer* )sender
+{
+    id info = self.dataArray[_currentIndex];
+    if (self.block) {
+        self.block(info);
+    }
+}
 -(void)autoFlowAction:(NSTimer* )timer
 {
-    LSHomeBannerItemView* next = [self dequeueReusableItemView];
+    LSHomeBannerItemLayer* next = [self dequeueReusableItemView];
     [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
 //    [next startAnimationWithType:LSHomeItemAnimationTypeRight];
 
@@ -144,41 +164,38 @@
 
 -(void)configWithData:(id)data
 {
+    //重置状态值
     self.currentIndex = 0;
+    self.gestureEnable = YES;
+    self.pageView.text = [NSString stringWithFormat:@"%ld/%lu",(long)self.currentIndex + 1,(unsigned long)self.dataArray.count];
     [self stopTimer];
-    NSMutableArray* bannerArray = [[[data objectForKey:@"data"] firstObject] objectForKey:@"items"];
     
-    [bannerArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString* imageURL = [obj objectForKey:@"logo"];
-        if(idx < 4){
-            [self.dataArray addObject:imageURL];
-        }else{
-            *stop = YES;
-        }
-    }];
+    NSMutableArray* bannerArray = [[[data objectForKey:@"data"] firstObject] objectForKey:@"items"];
+    self.dataArray = bannerArray;
     //立即给第一张图赋值
     [self.reuseArray[0] configWithData:self.dataArray[0]];
     [self startTimer];
 }
 
 
--(void)resetViewPosition:(LSHomeBannerItemView*) view
+-(void)resetViewPosition:(LSHomeBannerItemLayer*) itemLayer
 {
 //    [CATransaction begin];
 //    [CATransaction setDisableActions:YES];
-    view.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    if (view.superview == nil) {
-        [self addSubview:view];
+    itemLayer.position = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    if (itemLayer.superlayer == nil) {
+        [self.layer addSublayer:itemLayer];
     }
-    [self sendSubviewToBack:view];
+//    [self sendSubviewToBack:view];
+    [self.layer insertSublayer:itemLayer atIndex:0];
 //    [CATransaction commit];
 
 }
 
 
--(LSHomeBannerItemView* )dequeueReusableItemView
+-(LSHomeBannerItemLayer* )dequeueReusableItemView
 {
-    LSHomeBannerItemView* reuseItem = [self.reuseArray firstObject];
+    LSHomeBannerItemLayer* reuseItem = [self.reuseArray firstObject];
     return reuseItem? : nil;
 }
 
@@ -186,9 +203,8 @@
 
 #pragma mark - Animation Delegate
 
--(void)animationWillStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
+-(void)animationWillStart:(CAAnimation *)anim target:(LSHomeBannerItemLayer *)targetView
 {
-    NSLog(@"Next:%@",targetView);
     //计数增加
     self.currentIndex++;
     if (self.currentIndex > self.dataArray.count - 1) {
@@ -198,12 +214,12 @@
     [self.reuseArray removeObject:targetView];
     [self.usingArray addObject:targetView];
     //为即将展示的item赋值
-    LSHomeBannerItemView* nextDisplayView = [self dequeueReusableItemView];
+    LSHomeBannerItemLayer* nextDisplayView = [self dequeueReusableItemView];
     [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
 
 }
 
--(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
+-(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemLayer *)targetView
 {
     self.gestureEnable = NO;
 //    NSLog(@"Next:%@",targetView);
@@ -225,7 +241,7 @@
 }
 
 
--(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView finished:(BOOL)flag
+-(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemLayer *)targetView finished:(BOOL)flag
 {
     self.gestureEnable = YES;
     //动画完成从使用数组移除  放入可重用数组 并且放回默认位置
@@ -249,12 +265,16 @@
         _maskGestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300,200)];
         _maskGestureView.backgroundColor = [UIColor clearColor];
         _maskGestureView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        [self addSubview:_maskGestureView];
+
         UIPanGestureRecognizer* pgr = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
         [_maskGestureView addGestureRecognizer:pgr];
-        [self addSubview:_maskGestureView];
-        [_maskGestureView addSubview:self.pageView];
-        self.pageView.center = CGPointMake(_maskGestureView.bounds.size.width/2, _maskGestureView.bounds.size.height-20/2 -10);
+        UITapGestureRecognizer* tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
+        [_maskGestureView addGestureRecognizer:tgr];
         
+        self.pageView.center = CGPointMake(_maskGestureView.bounds.size.width/2, _maskGestureView.bounds.size.height-20/2 -10);
+        [_maskGestureView addSubview:self.pageView];
+
         
     }
     return _maskGestureView;
@@ -265,6 +285,7 @@
 {
     if (!_pageView) {
         _pageView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
+        _pageView.font = [UIFont systemFontOfSize:10];
         _pageView.layer.masksToBounds = YES;
         _pageView.layer.cornerRadius = 10;
         _pageView.textAlignment = NSTextAlignmentCenter;

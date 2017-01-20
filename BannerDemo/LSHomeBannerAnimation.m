@@ -67,7 +67,7 @@
         animationGroup.fillMode = kCAFillModeForwards;
         //设置动画组的时间
         animationGroup.duration = LSHOME_BANNER_ANIMATION_DURATION;
-        //将上述两个动画编组
+    
         _leftAnimation = animationGroup;
     }
     return _leftAnimation;
@@ -132,7 +132,7 @@
 
 -(void)dealloc
 {
-    
+    NSLog(@"%@ is Dealloc",self);
 }
 
 @end

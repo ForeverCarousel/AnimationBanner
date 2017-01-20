@@ -17,12 +17,6 @@
 
 @end
 
-typedef NS_ENUM(NSUInteger, LSHomeBannerItemViewState) {
-    LSHomeBannerItemViewStateUsing,
-    LSHomeBannerItemViewStateReuseable,
-    LSHomeBannerItemViewStateWillUse,
-    LSHomeBannerItemViewStateUnknow,
-};
 
 typedef NS_ENUM(NSUInteger, LSHomeItemAnimationType) {
     LSHomeItemAnimationTypeLeft,
@@ -33,7 +27,6 @@ typedef NS_ENUM(NSUInteger, LSHomeItemAnimationType) {
 
 @interface LSHomeBannerItemView : UIView
 
-@property (nonatomic, assign) LSHomeBannerItemViewState state;
 @property (nonatomic, weak) id <LSHomeBannerItemViewAnimationDelegate> delegate;
 
 -(void)startAnimationWithType:(LSHomeItemAnimationType) type;

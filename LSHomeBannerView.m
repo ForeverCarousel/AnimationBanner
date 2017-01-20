@@ -19,7 +19,9 @@
 
 @interface LSHomeBannerView()<LSHomeBannerItemViewAnimationDelegate>
 
-@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemView*>* itemViewsArray;
+@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemView*>* reuseArray;
+@property (strong, nonatomic) NSMutableArray<LSHomeBannerItemView*>* usingArray;
+
 @property (strong, nonatomic) NSMutableArray* dataArray;
 
 @property (strong, nonatomic) UIView* maskGestureView;
@@ -41,18 +43,19 @@
     if (self) {
         
         self.backgroundColor = [UIColor grayColor];
-        self.itemViewsArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
+        self.reuseArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
+        self.usingArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
+
         self.dataArray = [NSMutableArray array];
         self.currentIndex = 0;
         for (int i = 0; i < LSHBI_CREAT_COUNT_MAX; ++i) {
             LSHomeBannerItemView* itemView = [[LSHomeBannerItemView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
             itemView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
             itemView.delegate = self;
-            [self.itemViewsArray addObject:itemView];
+            [self.reuseArray addObject:itemView];
+            //需要都添加视图 用于下面逻辑判断
+            [self addSubview:itemView];
         }
-        
-        //默认添加一张
-        [self addSubview:self.itemViewsArray[0]];
         
         [self bringSubviewToFront:self.maskGestureView];
         
@@ -91,12 +94,17 @@
 {
     LSHomeBannerItemView* next = [self dequeueReusableItemView];
     [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
+    
 }
 
 
 -(void)startTimer
 {
+//    if (![self.autoFlowTimer isValid]) {
+//        [[NSRunLoop currentRunLoop] addTimer:self.autoFlowTimer forMode:NSRunLoopCommonModes];
+//    }
     [[NSRunLoop currentRunLoop] addTimer:self.autoFlowTimer forMode:NSRunLoopCommonModes];
+
 }
 
 -(void)stopTimer
@@ -111,46 +119,42 @@
 
 -(void)configWithData:(id)data
 {
+    self.currentIndex = 0;
     [self stopTimer];
     NSMutableArray* bannerArray = [[[data objectForKey:@"data"] firstObject] objectForKey:@"items"];
     
     [bannerArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString* imageURL = [obj objectForKey:@"logo"];
-        [self.dataArray addObject:imageURL];
+        if(idx < 4){
+            [self.dataArray addObject:imageURL];
+        }else{
+            *stop = YES;
+        }
     }];
     //立即给第一张图赋值
-    [self.itemViewsArray[0] configWithData:self.dataArray[0]];
+    [self.reuseArray[0] configWithData:self.dataArray[0]];
     [self startTimer];
 }
 
 
 -(void)resetViewPosition:(LSHomeBannerItemView*) view
 {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
+//    [CATransaction begin];
+//    [CATransaction setDisableActions:YES];
     view.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     if (view.superview == nil) {
         [self addSubview:view];
     }
     [self sendSubviewToBack:view];
-    [CATransaction commit];
+//    [CATransaction commit];
 
 }
 
 
 -(LSHomeBannerItemView* )dequeueReusableItemView
 {
-    if (self.itemViewsArray.count != 0) {
-        for (LSHomeBannerItemView* temp  in self.itemViewsArray) {
-            if (temp.state == LSHomeBannerItemViewStateReuseable) {
-                return temp;
-            }
-        }
-        return nil;
-    }else{
-        return nil;
-    }
-
+    LSHomeBannerItemView* reuseItem = [self.reuseArray firstObject];
+    return reuseItem? : nil;
 }
 
 
@@ -160,17 +164,20 @@
 
 -(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
 {
+    NSLog(@"Next:%@",targetView);
     //计数增加
     self.currentIndex++;
     if (self.currentIndex > self.dataArray.count - 1) {
         self.currentIndex = 0;//循环
     }
-    //动画开始 修改item的状态 置为不可以
-    targetView.state = LSHomeBannerItemViewStateUsing;
-    //取出一个可用的放到当前显示位置
+  
+    //从可复用数组移除 添加到正在使用数组
+    [self.reuseArray removeObject:targetView];
+    [self.usingArray addObject:targetView];
+    //为即将展示的item赋值
     LSHomeBannerItemView* nextDisplayView = [self dequeueReusableItemView];
     [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
-    [self resetViewPosition:nextDisplayView];
+
     
     
 }
@@ -178,20 +185,21 @@
 
 -(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView finished:(BOOL)flag
 {
-//    //动画结束 重置状态
-    targetView.state = LSHomeBannerItemViewStateReuseable;
-    //暂时移除
-    [targetView removeFromSuperview];
+
+    //动画完成从使用数组移除  放入可重用数组 并且放回默认位置
+    [self.usingArray removeObject:targetView];
+    [self.reuseArray addObject:targetView];
+    [self resetViewPosition:targetView];
     //刷新页码
     self.pageView.text = [NSString stringWithFormat:@"%ld/%lu",(long)self.currentIndex + 1,(unsigned long)self.dataArray.count];
-    
+  
 }
 
 
 
 
 
-#pragma mark -  LazyLoad
+#pragma mark -  LL
 
 -(UIView *)maskGestureView
 {
@@ -237,6 +245,10 @@
     return _autoFlowTimer;
 }
 
+-(void)dealloc
+{
+    NSLog(@"%@ is Dealloc",self);
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

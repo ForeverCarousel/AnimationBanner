@@ -11,6 +11,8 @@
 
 @protocol LSHomeBannerItemViewAnimationDelegate <NSObject>
 
+-(void)animationWillStart:(CAAnimation *)anim target:(LSHomeBannerItemView*) targetView;
+
 -(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView*) targetView;
 
 -(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemView*) targetView finished:(BOOL)flag;

@@ -59,7 +59,12 @@
 
 -(void)startAnimationWithType:(LSHomeItemAnimationType) type
 {
-    [self.layer removeAllAnimations];
+    //给下张展示的图预留时间
+    if (self.delegate && [self.delegate respondsToSelector:@selector(animationWillStart:target:)])
+    {
+        [self.delegate animationWillStart:nil target:self];
+    }
+    
     switch (type) {
         case LSHomeItemAnimationTypeLeft:
             [self.layer addAnimation:self.animation.leftAnimation forKey:nil];
@@ -73,6 +78,7 @@
 }
 -(void)animationDidStart:(CAAnimation *)anim
 {
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStart:target:)]    ) {
         [self.delegate animationDidStart:anim target:self];
     }
@@ -81,7 +87,7 @@
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-//    [self.layer removeAllAnimations];
+    [self.layer removeAllAnimations];
     [self resetData];
     if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStop:target:finished:)]    ) {
         [self.delegate animationDidStop:anim target:self finished:flag];

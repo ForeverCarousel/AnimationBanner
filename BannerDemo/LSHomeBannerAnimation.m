@@ -9,7 +9,7 @@
 #import "LSHomeBannerAnimation.h"
 #import "LSWeakProxy.h"
 
-#define LSHOME_BANNER_ANIMATION_DURATION  1.0f
+#define LSHOME_BANNER_ANIMATION_DURATION  0.5f
 
 
 @interface LSHomeBannerAnimation() <CAAnimationDelegate>

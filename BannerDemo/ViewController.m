@@ -24,18 +24,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGSize size = [UIScreen mainScreen].bounds.size;
-    LSHomeBannerView* bannerView = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300)];
-    [self.view addSubview:bannerView];
     
-    NSDictionary* dic = LSJSONConfig(@"testContent");
-    [bannerView configWithData:dic];
     
     
     self.attrLabel = [[LSAttributeLabel alloc] initWithFrame:CGRectMake(20, 350, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     self.attrLabel.font = [UIFont systemFontOfSize:14.0f];
-//    [self.view addSubview:_attrLabel];
+    //    [self.view addSubview:_attrLabel];
     _attrLabel.numberOfLines = 2;
     
+    UIButton* btn = [UIButton    buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"Button" forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor purpleColor];
+    [btn setFrame:CGRectMake(20, 350, [UIScreen mainScreen].bounds.size.width - 40, 40)];
+    [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
     
     
     self.iconImage = [[CarouselFoldView alloc] initWithFrame:CGRectMake(0, 300, 290, 415)];
@@ -43,7 +45,7 @@
     _iconImage.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2 +100);
     _iconImage.image = [UIImage imageNamed:@"Faye"];
     _iconImage.sensitivity = 3.0f;
-//    [self.view addSubview:_iconImage];
+    //    [self.view addSubview:_iconImage];
     
     
     
@@ -60,15 +62,30 @@ id LSJSONConfig(NSString *fileName){
     return resultJSON;
 }
 
+-(void)showBanner:(BOOL)show
+{
+    if (show) {
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        LSHomeBannerView* bannerView = [[LSHomeBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, 300)];
+        bannerView.tag = 1010;
+        [self.view addSubview:bannerView];
+        NSDictionary* dic = LSJSONConfig(@"testContent");
+        [bannerView configWithData:dic];
+    }else{
+        [[self.view viewWithTag:1010] removeFromSuperview];
+    }
+}
 
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+-(void)btnPressed:(UIButton*)sender
 {
     static BOOL a = YES;
     self.attrLabel.isVIP = a;
     NSString* B = @"第三个参数attributes其实就是字符串的属性，是个字典类型的对象";
-//    NSString* B = @"第三个参数";
+    //    NSString* B = @"第三个参数";
     _attrLabel.text = B;
+    
+    
+    [self showBanner:a];
     
     
     a = !a;

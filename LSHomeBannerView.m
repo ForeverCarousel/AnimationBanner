@@ -32,6 +32,8 @@
 
 @property (assign, nonatomic) NSInteger currentIndex;
 
+@property (assign, nonatomic) BOOL gestureEnable;
+
 @end
 
 @implementation LSHomeBannerView
@@ -41,7 +43,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.gestureEnable = YES;
         self.backgroundColor = [UIColor grayColor];
         self.reuseArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
         self.usingArray = [NSMutableArray arrayWithCapacity:LSHBI_CREAT_COUNT_MAX];
@@ -53,10 +55,11 @@
             itemView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
             itemView.delegate = self;
             [self.reuseArray addObject:itemView];
-            //需要都添加视图 用于下面逻辑判断
-            [self addSubview:itemView];
         }
-        
+        // 由于数组是追加 所以需要切换下位置
+        for (int i = LSHBI_CREAT_COUNT_MAX - 1; i >= 0; i--) {
+            [self addSubview:self.reuseArray[i]];
+        }
         [self bringSubviewToFront:self.maskGestureView];
         
     }
@@ -83,10 +86,28 @@
 
 #pragma mark - Action
 
--(void)panGestureAction:(UIPanGestureRecognizer* )pgr
+-(void)panGestureAction:(UIPanGestureRecognizer* )sender
 {
-    
-    
+    if (!_gestureEnable) {
+        return;
+    }
+    CGPoint startPoint ,endPoint;
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        startPoint = [sender translationInView:self.maskView];
+    }else if (sender.state == UIGestureRecognizerStateEnded){
+        endPoint = [sender translationInView:self.maskView];
+        if (startPoint.x - endPoint.x > 10) {
+            LSHomeBannerItemView* next = [self dequeueReusableItemView];
+            [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
+            [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+        }
+        if (startPoint.x - endPoint.x < 10) {
+        
+            LSHomeBannerItemView* next = [self dequeueReusableItemView];
+            [next startAnimationWithType:LSHomeItemAnimationTypeRight];
+            [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+        }
+    }
     
 }
 
@@ -94,7 +115,8 @@
 {
     LSHomeBannerItemView* next = [self dequeueReusableItemView];
     [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
-    
+//    [next startAnimationWithType:LSHomeItemAnimationTypeRight];
+
 }
 
 
@@ -161,8 +183,7 @@
 
 #pragma mark - Animation Delegate
 
-
--(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
+-(void)animationWillStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
 {
     NSLog(@"Next:%@",targetView);
     //计数增加
@@ -170,13 +191,31 @@
     if (self.currentIndex > self.dataArray.count - 1) {
         self.currentIndex = 0;//循环
     }
-  
     //从可复用数组移除 添加到正在使用数组
     [self.reuseArray removeObject:targetView];
     [self.usingArray addObject:targetView];
     //为即将展示的item赋值
     LSHomeBannerItemView* nextDisplayView = [self dequeueReusableItemView];
     [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
+
+}
+
+-(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView
+{
+    self.gestureEnable = NO;
+//    NSLog(@"Next:%@",targetView);
+//    //计数增加
+//    self.currentIndex++;
+//    if (self.currentIndex > self.dataArray.count - 1) {
+//        self.currentIndex = 0;//循环
+//    }
+//  
+//    //从可复用数组移除 添加到正在使用数组
+//    [self.reuseArray removeObject:targetView];
+//    [self.usingArray addObject:targetView];
+//    //为即将展示的item赋值
+//    LSHomeBannerItemView* nextDisplayView = [self dequeueReusableItemView];
+//    [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
 
     
     
@@ -185,7 +224,7 @@
 
 -(void)animationDidStop:(CAAnimation *)anim target:(LSHomeBannerItemView *)targetView finished:(BOOL)flag
 {
-
+    self.gestureEnable = YES;
     //动画完成从使用数组移除  放入可重用数组 并且放回默认位置
     [self.usingArray removeObject:targetView];
     [self.reuseArray addObject:targetView];

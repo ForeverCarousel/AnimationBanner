@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-panGestureAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "-animationDidStart:target:"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-autoFlowAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -196,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "-animationDidStart:target:"
             landmarkType = "7">
          </BreakpointContent>
@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-animationDidStop:target:finished:"
             landmarkType = "7">
          </BreakpointContent>
@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "-startTimer"
             landmarkType = "7">
          </BreakpointContent>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-initWithFrame:selectBlock:"
             landmarkType = "7">
          </BreakpointContent>
@@ -260,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-panGestureAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -276,11 +276,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LSHomeBannerView.m"
-            timestampString = "506622592.143661"
+            timestampString = "506763366.891984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "-panGestureAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -304,16 +304,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BannerDemo/LSHomeBannerItemLayer.m"
-            timestampString = "506621862.082396"
+            timestampString = "506759459.81708"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-configWithData:"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-init"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -69,11 +69,11 @@
         [self.layer addSublayer:backLayer];
         
         for (int i = 0; i < LSHBI_CREAT_COUNT_MAX; ++i) {
-            LSHomeBannerItemLayer* itemView = [[LSHomeBannerItemLayer alloc] init];
-            itemView.bounds = CGRectMake(0, 0, 300, 200);
-            itemView.position = CGPointMake(frame.size.width/2, frame.size.height/2);
-            itemView.customDelegate = self;
-            [self.reuseArray addObject:itemView];
+            LSHomeBannerItemLayer* itemLayer = [[LSHomeBannerItemLayer alloc] init];
+            itemLayer.bounds = CGRectMake(0, 0, 300, 200);
+            itemLayer.position = CGPointMake(frame.size.width/2, frame.size.height/2);
+            itemLayer.customDelegate = self;
+            [self.reuseArray addObject:itemLayer];
         }
         // 由于数组是追加 所以需要切换下位置
         for (int i = LSHBI_CREAT_COUNT_MAX - 1; i >= 0; i--) {
@@ -114,8 +114,10 @@
     }else if (sender.state == UIGestureRecognizerStateEnded){
         _endPoint = [sender translationInView:self.maskView];
         if (_startPoint.x - _endPoint.x > 10) {
-            LSHomeBannerItemLayer* next = [self dequeueReusableItemView];
-            [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
+            LSHomeBannerItemLayer* validItem = [self dequeueReusableItemView];
+            if (validItem) {
+                [validItem startAnimationWithType:LSHomeItemAnimationTypeLeft];
+            }
             [self.autoFlowTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
         }
         if (_startPoint.x - _endPoint.x < 10) {
@@ -215,7 +217,9 @@
     [self.usingArray addObject:targetView];
     //为即将展示的item赋值
     LSHomeBannerItemLayer* nextDisplayView = [self dequeueReusableItemView];
-    [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
+    if (nextDisplayView) {
+        [nextDisplayView configWithData:self.dataArray[self.currentIndex]];
+    }
 
 }
 

@@ -140,7 +140,7 @@
 {
     LSHomeBannerItemLayer* next = [self dequeueReusableItemView];
     [next startAnimationWithType:LSHomeItemAnimationTypeLeft];
-//    [next startAnimationWithType:LSHomeItemAnimationTypeRight];
+    
 
 }
 
@@ -169,11 +169,12 @@
     //重置状态值
     self.currentIndex = 0;
     self.gestureEnable = YES;
-    self.pageView.text = [NSString stringWithFormat:@"%ld/%lu",(long)self.currentIndex + 1,(unsigned long)self.dataArray.count];
     [self stopTimer];
     
     NSMutableArray* bannerArray = [[[data objectForKey:@"data"] firstObject] objectForKey:@"items"];
     self.dataArray = bannerArray;
+    self.pageView.text = [NSString stringWithFormat:@"%ld/%lu",(long)self.currentIndex + 1,(unsigned long)self.dataArray.count];
+
     //立即给第一张图赋值
     [self.reuseArray[0] configWithData:self.dataArray[0]];
     [self startTimer];
@@ -188,7 +189,6 @@
     if (itemLayer.superlayer == nil) {
         [self.layer addSublayer:itemLayer];
     }
-//    [self sendSubviewToBack:view];
     [self.layer insertSublayer:itemLayer atIndex:0];
 //    [CATransaction commit];
 
@@ -226,6 +226,11 @@
 -(void)animationDidStart:(CAAnimation *)anim target:(LSHomeBannerItemLayer *)targetView
 {
     self.gestureEnable = NO;
+//    LSHomeBannerItemLayer* nextDisplayView = [self dequeueReusableItemView];
+//    if (nextDisplayView) {
+//        //执行一个弹出动画
+//        [nextDisplayView startAnimationWithType:LSHomeItemAnimationTypeScale];
+//    }
 //    NSLog(@"Next:%@",targetView);
 //    //计数增加
 //    self.currentIndex++;

@@ -27,5 +27,6 @@
 
 @property (strong, nonatomic) CAAnimationGroup* leftAnimation;
 @property (strong, nonatomic) CAAnimationGroup* rightAnimation;
+@property (strong, nonatomic) CAAnimationGroup* scaleAnimation;
 
 @end

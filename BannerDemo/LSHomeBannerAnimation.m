@@ -52,7 +52,7 @@
         CABasicAnimation* rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         rotateAnimation.repeatCount = 1;
         rotateAnimation.fromValue = [NSNumber numberWithFloat:0.0];//起始角度
-        rotateAnimation.toValue = [NSNumber numberWithFloat: -0.1 * M_PI];//终止角度r
+        rotateAnimation.toValue = [NSNumber numberWithFloat: -0.2 * M_PI];//终止角度r
         rotateAnimation.duration = LSHOME_BANNER_ANIMATION_DURATION;
         
         
@@ -98,7 +98,7 @@
         fragmentAnimation.repeatCount = 1;
         fragmentAnimation.fromValue = [NSNumber numberWithFloat:0.0];//起始角度
         fragmentAnimation.toValue = [NSNumber numberWithFloat: -0.1 * M_PI];//终止角度r
-        fragmentAnimation.duration = 0.5;
+        fragmentAnimation.duration = LSHOME_BANNER_ANIMATION_DURATION;
         
         //动画组
         CAAnimationGroup* animationGroup = [CAAnimationGroup animation];
@@ -108,12 +108,38 @@
         [animationGroup setAnimations:[NSArray arrayWithObjects:fragmentAnimation, positionAnimation, nil]];
         animationGroup.removedOnCompletion = NO;
         animationGroup.fillMode = kCAFillModeForwards;
-        animationGroup.duration = 0.5f;
+        animationGroup.duration = LSHOME_BANNER_ANIMATION_DURATION;
         _rightAnimation = animationGroup;
     }
     
     return _rightAnimation;
 }
+
+-(CAAnimationGroup *)scaleAnimation
+{
+    if (!_scaleAnimation) {
+        //缩放动画
+        CABasicAnimation* scaleA = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        scaleA.fromValue = [NSNumber numberWithFloat:0.8f];
+        scaleA.fromValue = [NSNumber numberWithFloat:2.0f];
+        
+        
+        CABasicAnimation* scaleB = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        scaleB.fromValue = [NSNumber numberWithFloat:2.0f];
+        scaleB.fromValue = [NSNumber numberWithFloat:1.0f];
+        
+        CAAnimationGroup* animationGroup = [CAAnimationGroup animation];
+        animationGroup.autoreverses = NO;//是否重播，原动画的倒播
+        animationGroup.repeatCount = 1;//HUGE_VALF INT32_MAX NSNotFound
+        [animationGroup setAnimations:[NSArray arrayWithObjects:scaleA, scaleB, nil]];
+        animationGroup.removedOnCompletion = NO;
+        animationGroup.fillMode = kCAFillModeForwards;
+        animationGroup.duration = LSHOME_BANNER_ANIMATION_DURATION;
+        _scaleAnimation = animationGroup;
+    }
+    return _scaleAnimation;
+}
+
 
 -(void)animationDidStart:(CAAnimation *)anim
 {

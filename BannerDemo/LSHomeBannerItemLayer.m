@@ -97,6 +97,8 @@
         case LSHomeItemAnimationTypeRight:
             [self addAnimation:self.animation.rightAnimation forKey:nil];
             break;
+        case LSHomeItemAnimationTypeScale:
+            [self addAnimation:self.animation.scaleAnimation forKey:nil];
         default:
             break;
     }

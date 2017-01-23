@@ -23,6 +23,7 @@
 typedef NS_ENUM(NSUInteger, LSHomeItemAnimationType) {
     LSHomeItemAnimationTypeLeft,
     LSHomeItemAnimationTypeRight,
+    LSHomeItemAnimationTypeScale,
     LSHomeItemAnimationTypeDefault,
 };
 

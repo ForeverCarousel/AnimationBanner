@@ -38,7 +38,7 @@
     [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     UIButton* btn2 = [UIButton    buttonWithType:UIButtonTypeCustom];
-    [btn2 setTitle:@"模拟刷新" forState:UIControlStateNormal];
+    [btn2 setTitle:@"模拟删除/添加" forState:UIControlStateNormal];
     btn2.backgroundColor = [UIColor purpleColor];
     [btn2 setFrame:CGRectMake(20, 420, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     [btn2 addTarget:self action:@selector(btnPressed2:) forControlEvents:UIControlEventTouchUpInside];

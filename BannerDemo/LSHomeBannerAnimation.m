@@ -121,17 +121,17 @@
         //缩放动画
         CABasicAnimation* scaleA = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         scaleA.fromValue = [NSNumber numberWithFloat:0.8f];
-        scaleA.fromValue = [NSNumber numberWithFloat:2.0f];
+        scaleA.fromValue = [NSNumber numberWithFloat:1.0f];
         
         
-        CABasicAnimation* scaleB = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        scaleB.fromValue = [NSNumber numberWithFloat:2.0f];
-        scaleB.fromValue = [NSNumber numberWithFloat:1.0f];
+//        CABasicAnimation* scaleB = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//        scaleB.fromValue = [NSNumber numberWithFloat:2.0f];
+//        scaleB.fromValue = [NSNumber numberWithFloat:1.0f];
         
         CAAnimationGroup* animationGroup = [CAAnimationGroup animation];
         animationGroup.autoreverses = NO;//是否重播，原动画的倒播
         animationGroup.repeatCount = 1;//HUGE_VALF INT32_MAX NSNotFound
-        [animationGroup setAnimations:[NSArray arrayWithObjects:scaleA, scaleB, nil]];
+        [animationGroup setAnimations:[NSArray arrayWithObjects:scaleA, nil]];
         animationGroup.removedOnCompletion = NO;
         animationGroup.fillMode = kCAFillModeForwards;
         animationGroup.duration = LSHOME_BANNER_ANIMATION_DURATION;

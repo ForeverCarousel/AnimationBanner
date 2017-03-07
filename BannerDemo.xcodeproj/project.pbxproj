@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA0FD8321E49A5970057D633 /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0FD8311E49A5970057D633 /* DrawView.m */; };
+		BA0FD8651E5C142F0057D633 /* banner_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0FD8641E5C142F0057D633 /* banner_shadow@2x.png */; };
 		BA2AABF51E11060500654C3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AABF41E11060500654C3A /* main.m */; };
 		BA2AABF81E11060500654C3A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AABF71E11060500654C3A /* AppDelegate.m */; };
 		BA2AABFB1E11060500654C3A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA2AABFA1E11060500654C3A /* ViewController.m */; };
@@ -25,12 +27,19 @@
 		BA4ED7911E2CB9E3003CCBF8 /* Faye.png in Resources */ = {isa = PBXBuildFile; fileRef = BA4ED7901E2CB9E3003CCBF8 /* Faye.png */; };
 		BA4ED7941E2CBF33003CCBF8 /* CarouselFoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4ED7931E2CBF33003CCBF8 /* CarouselFoldView.m */; };
 		BA4ED7971E38E9C0003CCBF8 /* faye_small.png in Resources */ = {isa = PBXBuildFile; fileRef = BA4ED7961E38E9BF003CCBF8 /* faye_small.png */; };
+		BA57FC0F1E68541100E0779C /* detail_multiCamera_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA57FC0B1E68541100E0779C /* detail_multiCamera_close@2x.png */; };
+		BA57FC101E68541100E0779C /* detail_multiCamera_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA57FC0C1E68541100E0779C /* detail_multiCamera_close@3x.png */; };
+		BA57FC111E68541100E0779C /* detail_multiCamera_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA57FC0D1E68541100E0779C /* detail_multiCamera_open@2x.png */; };
+		BA57FC121E68541100E0779C /* detail_multiCamera_open@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA57FC0E1E68541100E0779C /* detail_multiCamera_open@3x.png */; };
 		BA67D65F1E14BFFA002B40B8 /* lslabele_vip_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA67D65C1E14BFFA002B40B8 /* lslabele_vip_icon@3x.png */; };
 		BA67D6601E14BFFA002B40B8 /* lslabele_vip_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BA67D65D1E14BFFA002B40B8 /* lslabele_vip_icon.png */; };
 		BA67D6611E14BFFA002B40B8 /* lslabele_vip_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA67D65E1E14BFFA002B40B8 /* lslabele_vip_icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA0FD8301E49A5970057D633 /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawView.h; sourceTree = "<group>"; };
+		BA0FD8311E49A5970057D633 /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView.m; sourceTree = "<group>"; };
+		BA0FD8641E5C142F0057D633 /* banner_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_shadow@2x.png"; sourceTree = "<group>"; };
 		BA2AABF01E11060500654C3A /* BannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA2AABF41E11060500654C3A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BA2AABF61E11060500654C3A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,6 +68,10 @@
 		BA4ED7921E2CBF33003CCBF8 /* CarouselFoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarouselFoldView.h; path = ../CarouselFoldView.h; sourceTree = "<group>"; };
 		BA4ED7931E2CBF33003CCBF8 /* CarouselFoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CarouselFoldView.m; path = ../CarouselFoldView.m; sourceTree = "<group>"; };
 		BA4ED7961E38E9BF003CCBF8 /* faye_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = faye_small.png; sourceTree = "<group>"; };
+		BA57FC0B1E68541100E0779C /* detail_multiCamera_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detail_multiCamera_close@2x.png"; sourceTree = "<group>"; };
+		BA57FC0C1E68541100E0779C /* detail_multiCamera_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detail_multiCamera_close@3x.png"; sourceTree = "<group>"; };
+		BA57FC0D1E68541100E0779C /* detail_multiCamera_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detail_multiCamera_open@2x.png"; sourceTree = "<group>"; };
+		BA57FC0E1E68541100E0779C /* detail_multiCamera_open@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detail_multiCamera_open@3x.png"; sourceTree = "<group>"; };
 		BA67D65C1E14BFFA002B40B8 /* lslabele_vip_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lslabele_vip_icon@3x.png"; sourceTree = "<group>"; };
 		BA67D65D1E14BFFA002B40B8 /* lslabele_vip_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lslabele_vip_icon.png; sourceTree = "<group>"; };
 		BA67D65E1E14BFFA002B40B8 /* lslabele_vip_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lslabele_vip_icon@2x.png"; sourceTree = "<group>"; };
@@ -98,6 +111,7 @@
 				BA2AABF71E11060500654C3A /* AppDelegate.m */,
 				BA2AABF91E11060500654C3A /* ViewController.h */,
 				BA2AABFA1E11060500654C3A /* ViewController.m */,
+				BA0FD8641E5C142F0057D633 /* banner_shadow@2x.png */,
 				BA2AAC0A1E11180700654C3A /* LSHomeBannerView.h */,
 				BA2AAC0B1E11180700654C3A /* LSHomeBannerView.m */,
 				BA2AAC101E11187200654C3A /* LSHomeBannerItemLayer.h */,
@@ -110,6 +124,12 @@
 				BA4ED7931E2CBF33003CCBF8 /* CarouselFoldView.m */,
 				BA2AAC1B1E139DEC00654C3A /* LSAttributeLabel.h */,
 				BA2AAC1C1E139DEC00654C3A /* LSAttributeLabel.m */,
+				BA0FD8301E49A5970057D633 /* DrawView.h */,
+				BA0FD8311E49A5970057D633 /* DrawView.m */,
+				BA57FC0B1E68541100E0779C /* detail_multiCamera_close@2x.png */,
+				BA57FC0C1E68541100E0779C /* detail_multiCamera_close@3x.png */,
+				BA57FC0D1E68541100E0779C /* detail_multiCamera_open@2x.png */,
+				BA57FC0E1E68541100E0779C /* detail_multiCamera_open@3x.png */,
 				BA2AAC1E1E13A17000654C3A /* test@2x.png */,
 				BA2AAC1F1E13A17000654C3A /* test@3x.png */,
 				BA2AAC241E13D96600654C3A /* test2@2x.png */,
@@ -197,14 +217,19 @@
 			files = (
 				BA67D6611E14BFFA002B40B8 /* lslabele_vip_icon@2x.png in Resources */,
 				BA2AAC031E11060500654C3A /* LaunchScreen.storyboard in Resources */,
+				BA57FC111E68541100E0779C /* detail_multiCamera_open@2x.png in Resources */,
 				BA2AAC201E13A17000654C3A /* test@2x.png in Resources */,
 				BA67D6601E14BFFA002B40B8 /* lslabele_vip_icon.png in Resources */,
 				BA2AAC001E11060500654C3A /* Assets.xcassets in Resources */,
 				BA67D65F1E14BFFA002B40B8 /* lslabele_vip_icon@3x.png in Resources */,
 				BA4ED7971E38E9C0003CCBF8 /* faye_small.png in Resources */,
+				BA57FC0F1E68541100E0779C /* detail_multiCamera_close@2x.png in Resources */,
+				BA0FD8651E5C142F0057D633 /* banner_shadow@2x.png in Resources */,
 				BA2AAC211E13A17000654C3A /* test@3x.png in Resources */,
+				BA57FC121E68541100E0779C /* detail_multiCamera_open@3x.png in Resources */,
 				BA2AABFE1E11060500654C3A /* Main.storyboard in Resources */,
 				BA2AAC171E124E0900654C3A /* testContent.json in Resources */,
+				BA57FC101E68541100E0779C /* detail_multiCamera_close@3x.png in Resources */,
 				BA2AAC251E13D96600654C3A /* test2@2x.png in Resources */,
 				BA4ED7911E2CB9E3003CCBF8 /* Faye.png in Resources */,
 			);
@@ -221,6 +246,7 @@
 				BA2AAC0F1E11184400654C3A /* LSHomeBannerAnimation.m in Sources */,
 				BA2AAC121E11187200654C3A /* LSHomeBannerItemLayer.m in Sources */,
 				BA4ED7941E2CBF33003CCBF8 /* CarouselFoldView.m in Sources */,
+				BA0FD8321E49A5970057D633 /* DrawView.m in Sources */,
 				BA2AABFB1E11060500654C3A /* ViewController.m in Sources */,
 				BA2AAC151E111BC000654C3A /* LSWeakProxy.m in Sources */,
 				BA2AABF81E11060500654C3A /* AppDelegate.m in Sources */,

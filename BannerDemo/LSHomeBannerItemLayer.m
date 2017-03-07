@@ -66,8 +66,8 @@
 {
     NSString* imageURL = [data objectForKey:@"logo"];
     UIImage* image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]]];
-//    self.contentImage.contents = (id)image.CGImage;
-    self.contentImage.contents = (id)[UIImage imageNamed:@"faye"].CGImage;
+    self.contentImage.contents = (id)image.CGImage;
+//    self.contentImage.contents = (id)[UIImage imageNamed:@"faye"].CGImage;
     
     NSString* title = [data objectForKey:@"title"];
     self.titleLayer.string = title;

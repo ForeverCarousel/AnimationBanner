@@ -10,7 +10,7 @@
 #import "LSHomeBannerView.h"
 #import "LSAttributeLabel.h"
 #import "CarouselFoldView.h"
-
+#import "DrawView.h"
 @interface ViewController ()
 
 @property (strong, nonatomic) LSAttributeLabel* attrLabel;
@@ -38,7 +38,7 @@
     [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     UIButton* btn2 = [UIButton    buttonWithType:UIButtonTypeCustom];
-    [btn2 setTitle:@"模拟删除/添加" forState:UIControlStateNormal];
+    [btn2 setTitle:@"模拟刷新" forState:UIControlStateNormal];
     btn2.backgroundColor = [UIColor purpleColor];
     [btn2 setFrame:CGRectMake(20, 420, [UIScreen mainScreen].bounds.size.width - 40, 40)];
     [btn2 addTarget:self action:@selector(btnPressed2:) forControlEvents:UIControlEventTouchUpInside];
@@ -54,9 +54,49 @@
     
     [self showBanner:YES];
     
+    DrawView* dv = [[DrawView alloc] initWithFrame:CGRectMake(137, 500, 100, 50)];
+    dv.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:dv];
     
-}
+    
+    
+//    UIButton* cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    cameraButton.backgroundColor = [UIColor redColor];
+//    [cameraButton setImage:LSPlayerImage(@"detail_multiCamera_close") forState:UIControlStateNormal];
+//    [cameraButton setImage:LSPlayerImage(@"detail_multiCamera_open") forState:UIControlStateSelected];
+//    cameraButton.frame = CGRectMake(137, 500, 30, 30);
+//    [cameraButton addTarget:self action:@selector(cameraButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    cameraButton.tag = 2017;
+//    [self.view addSubview:cameraButton];
 
+    
+    
+
+    
+    
+//    
+//    CALayer *layer = [CALayer layer];
+//    layer.contents = (id)[UIImage imageNamed:@"banner_shadow"].CGImage;
+//    layer.opaque = NO;
+//    layer.frame = CGRectMake(10, 500, 375 - 10*2, 105);
+//    [self.view.layer addSublayer:layer];
+//    UILabel *label = [[UILabel alloc]init];
+//    label.frame = CGRectMake(10, 500, 12, 72);
+//    label.backgroundColor = [UIColor orangeColor];
+//    label.font = [UIFont systemFontOfSize:12];
+//    label.text = @"多\n视\n角";
+//    label.numberOfLines = [label.text length];
+//    [self.view addSubview:label];
+
+}
+-(void)cameraButtonTapped:(UIButton*) sender
+{
+    sender.selected = !sender.selected;
+}
+UIImage* LSPlayerImage(NSString* name){
+    
+    return [UIImage imageNamed:name];
+}
 
 id LSJSONConfig(NSString *fileName){
     NSString * bundlePath = [[ NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
@@ -64,6 +104,13 @@ id LSJSONConfig(NSString *fileName){
     NSData *resultData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *resultJSON = [NSJSONSerialization JSONObjectWithData:resultData options:0 error:nil];
     return resultJSON;
+}
+
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UIButton* b = [self.view viewWithTag:2017];
+    b.selected = !b.selected;
 }
 
 -(void)showBanner:(BOOL)show
